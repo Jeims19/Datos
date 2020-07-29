@@ -20,7 +20,7 @@
         <table border="1" align="center">
             
             <thead>
-            <th>ID</th>
+            <th> # </th>
             <th>NOMBRE</th>
             <th>ESTADO</th>
             <th>ELIMINAR</th>
@@ -37,13 +37,16 @@
                 out.print(consulta);
                 pst = cn.prepareStatement(consulta);
                 rs = pst.executeQuery();
+                int num = 0;
                 while(rs.next()){
+                    String ide = rs.getString(1);
+                    num++;
                     %>
                     <tr>
-                        <td><%=rs.getString(1)%></td>
+                        <td><%out.print(num);%></td>
                         <td><%=rs.getString(2)%></td>
                         <td><%out.print(rs.getString(3));%></td> 
-                        <td>ELIMINAR</td>
+                        <td><a href="datoslugares.jsp?f_accion=E&f_idestudiante=<%out.print(ide);%>">eliminar</a></td>
                         <td>EDITAR</td>
                     </tr>
                     
@@ -59,21 +62,4 @@
     </body>
 </html>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+
