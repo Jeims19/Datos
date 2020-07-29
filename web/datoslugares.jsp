@@ -13,6 +13,7 @@
         ResultSet rs;
         String s_accion;
         String s_idpersona;
+        String s_iddepartamento;
         
         %>
     </head>
@@ -33,8 +34,23 @@
             try{
                 ConectaBd bd = new ConectaBd();  //hace la coneccion
                 cn = bd.getConnection();
+                
+                s_accion= request.getParameter("f_accion");
+                s_iddepartamento= request.getParameter("f_iddepartamento");
+                
+                 if(s_accion != null){
+                     if(s_accion.equals("E")){
+                     consulta= "delete from departamento "
+                             + " where"
+                             + " iddepartamento =  " +   s_iddepartamento + "; ";
+                             out.print(consulta);
+                           pst = cn.prepareStatement(consulta);  
+                           pst.executeUpdate();
+                     }
+                 
+                 }
                 consulta="Select iddepartamento, nombre, estado " + " from departamento"; //hace la consulta
-                out.print(consulta);
+                
                 pst = cn.prepareStatement(consulta);
                 rs = pst.executeQuery();
                 int num = 0;
@@ -46,7 +62,7 @@
                         <td><%out.print(num);%></td>
                         <td><%=rs.getString(2)%></td>
                         <td><%out.print(rs.getString(3));%></td> 
-                        <td><a href="datoslugares.jsp?f_accion=E&f_idestudiante=<%out.print(ide);%>">eliminar</a></td>
+                        <td><a href="datoslugares.jsp?f_accion=E&f_iddepartamento=<%out.print(ide);%>">eliminar</a></td>
                         <td>EDITAR</td>
                     </tr>
                     
