@@ -14,10 +14,40 @@
         String s_accion;
         String s_idpersona;
         String s_iddepartamento;
-        
+        String s_nombre;
+        String s_estado;
         %>
     </head>
     <body>
+        <form name="AgregarDepartamento" action="datoslugares.jsp" method="POST">
+            <table border="0" align="center">
+                <thead>
+                    <tr>
+                        <th COLSPAN="2">AGREGAR DATOS</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nombre</td>
+                        <td><input type="text" name="f_nombre" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>Estado</td>
+                        <td><input type="text" name="f_estado" value="" /></td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="2"><input type="submit" value="Agregar!" /></td>
+                         <input type="hidden" name="f_accion" value="C" />
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+        </form>
+        
+   
         <table border="1" align="center">
             
             <thead>
@@ -46,7 +76,16 @@
                              out.print(consulta);
                            pst = cn.prepareStatement(consulta);  
                            pst.executeUpdate();
-                     }
+                     }else if(s_accion.equals("C")){
+                         s_nombre = request.getParameter("f_nombre");
+                         s_estado= request.getParameter("f_estado");
+                         consulta= "insert into "
+                                 + " departamento (nombre , estado)"
+                                 + "values('"+ s_nombre +"','"+ s_estado +"');";
+                                out.print(consulta);
+                                 pst = cn.prepareStatement(consulta);  
+                                 pst.executeUpdate();
+                     }  
                  
                  }
                 consulta="Select iddepartamento, nombre, estado " + " from departamento"; //hace la consulta
